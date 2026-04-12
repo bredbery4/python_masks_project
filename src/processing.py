@@ -12,3 +12,16 @@ def filter_by_state(operations: list[dict], state: str = "EXECUTED") -> list[dic
             # Добавляем эту операцию в наш новый список
             filtered_list.append(op)
     return filtered_list
+
+
+def sort_by_date(operations: list[dict], reverse: bool = True) -> list[dict]:
+    """
+    Функция возвращает новый список, отсортированный по дате
+    """
+
+    def get_date(op: dict) -> str:
+        # Извлекаем дату из словаря, если её нет - используем пустую строку
+        return str(op.get("date", ""))
+
+    # Сортируем и возвращаем новый список
+    return sorted(operations, key=get_date, reverse=reverse)
