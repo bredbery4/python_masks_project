@@ -2,9 +2,16 @@ import functools
 
 
 def log(filename=None):
+    """Декоратор верхнего уровня. Принимает имя файла для логирования.
+
+       Args:
+           filename (str, optional): Путь к файлу логирования. Если None, вывод идет в консоль.
+       """
     def decorator(func):
+        """Промежуточный декоратор, принимающий саму декорируемую функцию."""
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            """Обертка функции. Выполняет логирование результата или перехваченной ошибки."""
             try:
                 result = func(*args, **kwargs)
                 message = f"{func.__name__} ok"
