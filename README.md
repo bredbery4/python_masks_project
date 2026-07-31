@@ -24,6 +24,9 @@
 * **transaction_descriptions**: Поочередно возвращает текстовое описание для каждой транзакции.
 * **card_number_generator**: Генерирует номера банковских карт в заданном диапазоне.
 
+### 5. Модуль `decorators.py` (Декораторы)
+* **log**: Декоратор, который автоматически логирует начало и конец выполнения функции, а также её входные параметры и возникшие ошибки. Может писать как в консоль, так и в файл.
+
 ---
 
 ## Примеры использования
@@ -83,6 +86,7 @@ transactions = [
 
 ## Примеры вызова функций:
 
+### 1. Работа с генераторами:
 ```
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
@@ -95,6 +99,27 @@ descriptions = transaction_descriptions(transactions)
 # Генерация номеров карт
 for card in card_number_generator(1, 2):
     print(card)
+```
+
+### 2. Работа с логирующим декоратором:
+```python
+from src.decorators import log
+
+# Сценарий 1: Успешное выполнение с выводом лога в консоль
+@log()
+def add_numbers(a, b):
+    return a + b
+
+add_numbers(5, 10)  # В консоль выведется: add_numbers ok
+
+
+# Сценарий 2: Логирование ошибки с записью в файл
+@log(filename="errors.log")
+def division(a, b):
+    return a / b
+
+# При вызове упадет с ошибкой, и в файл errors.log запишется подробный текст
+division(10, 0)  
 ```
 
 ## Качество кода
